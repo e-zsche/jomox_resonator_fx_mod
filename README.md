@@ -73,7 +73,8 @@ what you have to reprogram to get new effects on your T-Resonator.
 
 ## Hardware Mods
 
-Here is how my T-Resonators turned out after the mod.
+Here is how my T-Resonators turned out after the mod. The knobs are missing on the MKI because
+it's still open for easy access.
 
 <p float="left">
  <img src="pic/T-Resonator_MKI_modded.jpg" width="300" />
