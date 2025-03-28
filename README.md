@@ -38,6 +38,7 @@ are some infos still around:
 - <https://www.musikding.rocks/forum/index.php?thread/421356-howto-fv-1-eeprom-beschreiben/> (german article)
 
 # Disclaimer
+
 In my opinion this is not a beginner friendly mod. If you are new to modding and electronics
 be warned that you may get frustrated. You should know a something about EEPROM chips and
 how to program them.
@@ -47,40 +48,48 @@ You should be confident in soldering cables to SMD chips. If you do not have the
 practice on some broken PCBs before attempting to solder to your T-Resonator or ask someone
 who is confident in SMD soldering to do the solder job for you and share some snacks :)
 
-I do not take responsibility for any damage that may occur to your device.
+I do not take responsibility for any damage that may be done to your device while performing
+this mod.
 
 Now with all the precautions being said let's dig in.
 
 # Modding your JoMoX T-Resonator MkI and MKII
 
-To understand the basis of this mod you have to have a look at the
+To understand the basis of this mod let's take a look at the
 <a href="https://www.uk-electronic.de/PDF/FV-1.pdf">FV-1 Datasheet</a>
-and look at the basic FV-1 schematic.
+and glimpse at the basic FV-1 schematic.
 
 <p float="left">
  <img src="pic/FV-1_typical_application_circuit.jpg" width="300" />
 </p>
 
-What you should keep in mind from looking at it is that you can control this IC
-with three potentiometers (which act as simple voltage dividers, so adding a
-control voltage here is totally possible!) and that it uses an external EEPROM
-to store effects programs. This EEPROM is what you have to reprogram to get new
-effects on your T-Resonator.
+What you should keep in mind is that you can control this IC with three potentiometers
+(which act as simple voltage dividers, so adding a control voltage here is totally possible!)
+and that it uses an external EEPROM to store effects programs. This EEPROM is
+what you have to reprogram to get new effects on your T-Resonator.
 
 ## Hardware Mods
+
+Here is how my T-Resonators turned out after the mod.
+
+<p float="left">
+ <img src="pic/T-Resonator_MKI_modded.jpg" width="300" />
+ <img src="pic/T-Resonator_MKII_modded.jpg" width="300" />
+</p>
 
 Now let's have a look inside the T-Resonator and see how the FV-1 is incorporated
 in the device.
 
 <p float="left">
- <img src="pic/T-Resonator_MKII_PCB.jpg" width="300" />
  <img src="pic/T-Resonator_MKI_PCB.jpg" width="300" />
+ <img src="pic/T-Resonator_MKII_PCB.jpg" width="300" />
 </p>
 
-The picture on the left is the T-Resonator MKII, on the right you see the insides
-of the T-Resonator MKI. The difference between the MKI and MKII is mainly the
+The picture on the left is the T-Resonator MKI and on the right you see the insides
+of the T-Resonator MKII. Both of them have the mod already installed.
+The difference between the MKI and MKII is mainly the
 different power supply section and some changes on how the LFO works. The mod
-described here is similiar for both devices.
+described here is the same for both devices.
 
 Our section of interest is located on the left side of the PCB a little
 down from the middle, right under the LFO LEDs.
@@ -116,19 +125,18 @@ so I removed it completely and bridged the pads for normal operation.
 ## Programming New Effects
 
 Now that you have installed the third potentiometer it is time to program some new effects.
-Next to the FV-1 chip right at the PCB edge is the EEPROM itself. As you saw in the FV-1
-circuit diagram it is a 24LC32A EEPROM. Fortunately this chip is in DIP format and it's
+Next to the FV-1 chip right at the edge of the PCB is the EEPROM itself. As you saw in the FV-1
+circuit diagram it is a 24LC32A EEPROM. Fortunately this chip is in DIP format and is
 socketed so you can easily take it out for programming.
 
 Now comes the part where you need some kind of software to get programs in a format that
-the FV-1 chips understands. Spinsemi provides a software environment. However I do not know
-where to get the official software. Thanks to <a href="https://github.com/ndf-zz/">ndf-zz</a>
-there is a way to assemble FV-1 programs into byte code.
-
-Check out the project here: <a href="https://github.com/ndf-zz/asfv1">FV-1 Assembler</a>
+the FV-1 chips understands. Spinsemi provides a software environment. This however costs
+some money. If you want to save yourself some bucks there is an open source solution
+thanks to <a href="https://github.com/ndf-zz/">ndf-zz</a>.  Check out the project here:
+- <a href="https://github.com/ndf-zz/asfv1">FV-1 Assembler</a>
 
 To run this on your PC you need to have the Python interpreter installed. Please refer to
-to the project README on how to get this running.
+to the FV-1 assembler project README on how to get this running.
 
 With this you are now able to get the binary that needs to be put into the 24LC32A EEPROM.
 Getting the bytes on the EEPROM is done over I2C. You need some kind of device that enables
@@ -137,7 +145,7 @@ a USB to I2C bridge is used. For example chips like the MCP2221 or CH341.  Anoth
 to use a microcontroller and program it to get the bytes from your PC and put write them
 to the EEPROM.
 
-While doing this I realized that it's a hassle (for me at least) to write the programs this
+While doing this I realized that it's a hassle (for me at least) to program the EEPROM this
 way. This got me thinking if the Python assembler program would run on microcontroller using
 Micropython. Long story short: it does!! Using a raspberry pi pico microcontroller running
 Micropython you can build yourself a standalone EEPROM programmer specifically for FV-1
