@@ -163,3 +163,17 @@ the T-Rackonizer I will add it's binary file.
 Once you programmed your new EEPROM plug it in and test the new effects. If something went wrong
 while programming you won't hear any effects but you will not harm your T-Resonator. Do check
 however for the correct orientation.
+
+# Further Mod Ideas
+
+## Adding Effect Parameter CV
+
+All Potentiometers for the effect parameters are voltage dividers from 3,3V. Using a rail-to-rail
+low volt opamp (like an MCP6002) you can mix the potentiometers with an external control voltage.
+
+## FV-1 Clock Mod
+
+The FV-1 runs an a standard 32 kHz quarz crystal which acts as the main processing clock. It's possible
+to replace the quarz with an external square wave oscillator. This should give you some real crunchy
+bitcrushing effects as you turn down the oscillator frequency. When you go higher the sound gets a
+little cleaner but it's not as interesting.
