@@ -37,6 +37,9 @@ are some infos still around:
 - <https://github.com/audiofab/fv1_programmer>
 - <https://www.musikding.rocks/forum/index.php?thread/421356-howto-fv-1-eeprom-beschreiben/> (german article)
 
+The FV-1 uses 24LC32A EEPROMs to store the audio effect programs
+- <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA32A-24LC32A-32-Kbit-I2C-Serial-EEPROM-DS20001713.pdf">24LC32A Datasheet</a>
+
 # Disclaimer
 
 In my opinion this is not a beginner friendly mod. If you are new to modding and electronics
@@ -144,6 +147,16 @@ you to do that. Looking around the web you can find different ways to do it. Mos
 a USB to I2C bridge is used. For example chips like the MCP2221 or CH341.  Another way is
 to use a microcontroller and program it to get the bytes from your PC and put write them
 to the EEPROM.
+
+For programming wire the EEPROM for example on a breadboard. Pull all all address pins
+(A0 - A2) to GND, supply 3,3V or 5V to the Vcc pin. Connect the I2C pins to your programmer
+of choice and make sure there are pull-up resistors (around 4K7 resistors are fine) to Vcc
+on the I2C pins. For reading the WP (write protect pin) may be either Vcc or GND. If you
+want to write new programs make sure to connect the WP pin to GND.
+
+<p float="left">
+ <img src="pic/24LC32A_wiring_for_programming.jpg" width="300" />
+</p>
 
 While doing this I realized that it's a hassle (for me at least) to program the EEPROM this
 way. This got me thinking if the Python assembler program would run on microcontroller using
