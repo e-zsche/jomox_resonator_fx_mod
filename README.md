@@ -28,3 +28,18 @@ are some infos still around:
 - <a href="https://xenvn.com/threads/spin-fv-1-audio-effects.125">FV-1 Audio Effects</a>
 - <a href="https://xenvn.com/threads/spin-fv-1-instructions-and-syntax.122/">FV-1 Assembly Instructions and Syntax</a>
 - <a href="https://xenvn.com/threads/basics-of-the-lfos-in-the-spin-fv-1.123/">FV-1 Basics of the lfos</a>
+
+# Mod description
+To understand the basis of this mod you have to have a look at the
+<a href="https://www.uk-electronic.de/PDF/FV-1.pdf">FV-1 Datasheet</a>
+and look at the basic FV-1 schematic.
+
+<p float="left">
+ <img src="pic/FV-1_typical_application_circuit.jpg" width="300" />
+</p>
+
+What you should keep in mind from looking at it is that you can control this IC
+with three potentiometers (which act as simple voltage dividers, so adding a
+control voltage here is totally possible!) and that it uses an external EEPROM
+to store effects programs. Reading the datasheet also reveals that you can switch
+between 8 internal effects and 8 external effects stored on the EEPROM.
