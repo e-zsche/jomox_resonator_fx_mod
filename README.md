@@ -131,7 +131,9 @@ so I removed it completely and bridged the pads for normal operation.
 Now that you have installed the third potentiometer it is time to program some new effects.
 Next to the FV-1 chip right at the edge of the PCB is the EEPROM itself. As you saw in the FV-1
 circuit diagram it is a 24LC32A EEPROM. Fortunately this chip is in DIP format and is
-socketed so you can easily take it out for programming.
+socketed so you can easily take it out for programming. There are more tutorials on how to
+program the FV-1 than I can link here. Please have a look for yourself. In this text you
+will only find the most basic info on how to do this.
 
 Now comes the part where you need some kind of software to get programs in a format that
 the FV-1 chips understands. Spinsemi provides a software environment. This however costs
@@ -141,6 +143,10 @@ thanks to <a href="https://github.com/ndf-zz/">ndf-zz</a>.  Check out the projec
 
 To run this on your PC you need to have the Python interpreter installed. Please refer to
 to the FV-1 assembler project README on how to get this running.
+
+Another option is SpinCAD-Designer. A Java app in which you can program effects visually.
+Check it out for yourself:
+- <a href="https://github.com/HolyCityAudio/SpinCAD-Designer">SpinCAD-Designer</a>
 
 With this you are now able to get the binary that needs to be put into the 24LC32A EEPROM.
 Getting the bytes on the EEPROM is done over I2C. You need some kind of device that enables
