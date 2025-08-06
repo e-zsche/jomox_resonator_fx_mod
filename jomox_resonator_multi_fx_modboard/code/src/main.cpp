@@ -10,6 +10,9 @@
  *   and store it in the data range accessible by the FV-1.
  */
 #include <Arduino.h>
+
+// set USI_BUF_SIZE in TinyWireM.h to at least 70
+//#define USI_BUF_SIZE 80 //!< bytes in message buffer
 #include <TinyWireM.h>
 
 #define DEBOUNCE_TIME 250
