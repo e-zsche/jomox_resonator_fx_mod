@@ -20,9 +20,10 @@
  */
 #include <Arduino.h>
 
-// set USI_BUF_SIZE in TinyWireM.h to at least 70
+// set USI_BUF_SIZE in Wire.h to at least 70
 //#define USI_BUF_SIZE 80 //!< bytes in message buffer
-#include <TinyWireM.h>
+//#include <Wire.h>
+#include <Wire.h>
 
 #define DEBOUNCE_TIME 1000
 uint32_t prev_millis_btn = 0;
@@ -60,7 +61,8 @@ void setup() {
     // init buffer
     memset(&page_buffer, 0, EEPROM_PAGE_SIZE);
 
-    TinyWireM.begin();
+    //Wire.begin();
+    Wire.begin();
     suspend_i2c_bus();
 }
 
@@ -94,31 +96,31 @@ void loop() {
 }
 
 void eeprom_read_page(uint16_t start_addr, uint8_t *buf) {
-    TinyWireM.beginTransmission(EEPROM_ADDR);
-    TinyWireM.write(start_addr >> 8);
-    TinyWireM.write(start_addr & 0xff);
-    TinyWireM.endTransmission();
+    Wire.beginTransmission(EEPROM_ADDR);
+    Wire.write(start_addr >> 8);
+    Wire.write(start_addr & 0xff);
+    Wire.endTransmission();
 
-    TinyWireM.requestFrom(EEPROM_ADDR, EEPROM_PAGE_SIZE);
-    while(TinyWireM.available() < 63) {;;} // wait for page
+    Wire.requestFrom(EEPROM_ADDR, EEPROM_PAGE_SIZE);
+    while(Wire.available() < 63) {;;} // wait for page
     for(uint8_t i=0; i<EEPROM_PAGE_SIZE; i++) {
-        buf[i] = TinyWireM.read();
+        buf[i] = Wire.read();
     }
     // flush buffer
-    while(TinyWireM.available()) {
-        TinyWireM.read();
+    while(Wire.available()) {
+        Wire.read();
     }
 }
 
 void eeprom_write_page(uint16_t start_addr, uint8_t *buf) {
     digitalWrite(WP_PIN, LOW);
-    TinyWireM.beginTransmission(EEPROM_ADDR);
-    TinyWireM.write(start_addr >> 8);
-    TinyWireM.write(start_addr & 0xff);
+    Wire.beginTransmission(EEPROM_ADDR);
+    Wire.write(start_addr >> 8);
+    Wire.write(start_addr & 0xff);
     for(uint8_t i=0; i<EEPROM_PAGE_SIZE; i++) {
-        TinyWireM.write(buf[i]);
+        Wire.write(buf[i]);
     }
-    TinyWireM.endTransmission();
+    Wire.endTransmission();
     digitalWrite(WP_PIN, HIGH);
     delay(5);
 }
